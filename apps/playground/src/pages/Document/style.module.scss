@@ -6,6 +6,7 @@
 }
 .head {
   padding: 12px;
+  padding-bottom: 0;
 }
 .nav {
   display: flex;
@@ -33,6 +34,7 @@
 .main {
   flex: 1;
   overflow: auto;
+  padding: 12px;
 }
 .footer {
   display: flex;
@@ -50,4 +52,11 @@
 .file {
   font-size: 16px !important;
   color: rgb(var(--primary-6)) !important;
+}
+.col {
+  min-width: 30px;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

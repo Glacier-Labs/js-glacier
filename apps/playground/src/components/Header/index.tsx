@@ -8,7 +8,10 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <span>GlacierDB Playground</span>
+      <div className={styles.brand}>
+        <img src="/favicon.svg" alt="" />
+        <span>GlacierDB Playground</span>
+      </div>
       {!!account && <span>{util.shortAccount(account)}</span>}
     </header>
   )

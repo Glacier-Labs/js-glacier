@@ -7,6 +7,8 @@ import CreateNamespace from '@components/CreateNamespace'
 import CreateDataset from '@components/CreateDataset'
 import CreateCollection from '@components/CreateCollection'
 import EditDocument from '@components/EditDocument'
+import ViewDocument from '@components/ViewDocument'
+import SchemaSetting, { PropsData } from '@components/SchemaSetiing'
 
 function mount(node: JSX.Element) {
   const el = document.createElement('div')
@@ -62,6 +64,25 @@ export function editDocument(
       _id={_id}
       value={value}
       onClose={() => unmount()}
+    />
+  )
+}
+
+export function viewDocument(doc: any) {
+  const unmount = mount(<ViewDocument doc={doc} onClose={() => unmount()} />)
+}
+
+export function schemaSetting(
+  type: string,
+  data: PropsData,
+  onConfirm: (data: PropsData) => void
+) {
+  const unmount = mount(
+    <SchemaSetting
+      type={type}
+      data={data}
+      onClose={() => unmount()}
+      onConfirm={onConfirm}
     />
   )
 }

@@ -4,6 +4,7 @@ import { Web3Provider } from '@ethersproject/providers'
 import { ConfigProvider } from '@arco-design/web-react'
 import enUS from '@arco-design/web-react/es/locale/en-US'
 
+import 'prismjs/themes/prism-tomorrow.css'
 import '@arco-design/web-react/dist/css/arco.css'
 import '@assets/styles/global.scss'
 import App from './pages/App'

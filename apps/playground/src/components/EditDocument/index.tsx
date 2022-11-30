@@ -63,7 +63,6 @@ const EditDocument = observer((props: Props) => {
       title={!!props._id ? 'Edit Document' : 'Insert Document'}
       simple
       onConfirm={onSubmit}
-      unmountOnExit
       maskClosable={false}
       visible={visible}
       onCancel={() => setVisible(false)}

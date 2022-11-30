@@ -9,7 +9,7 @@ import {
 } from '@arco-design/web-react'
 
 import { useStore } from '@libs/store'
-import CodeEditor from '@components/CodeEditor'
+import SchemaForm from './SchemaForm'
 
 interface Props {
   dataset: string
@@ -23,8 +23,13 @@ const CreateCollection = observer((props: Props) => {
 
   const onSubmit = async () => {
     const { name, schema } = await form.current?.validate()
+    const data = {
+      title: name,
+      type: 'object',
+      ...schema
+    }
     try {
-      await store.createCollection(props.dataset, name, JSON.parse(schema))
+      await store.createCollection(props.dataset, name, data)
       props.onClose()
       Message.success('Collection Created')
     } catch (error: any) {
@@ -45,16 +50,22 @@ const CreateCollection = observer((props: Props) => {
       unmountOnExit
       maskClosable={false}
       visible={visible}
+      escToExit={false}
       onCancel={() => setVisible(false)}
       afterClose={props.onClose}
-      style={{ width: '600px' }}
+      style={{ width: '1000px' }}
     >
-      <Form layout="vertical" ref={form} size="large">
+      <Form
+        ref={form}
+        size="large"
+        labelCol={{ span: 3 }}
+        wrapperCol={{ span: 21 }}
+      >
         <Form.Item label="Dataset">
-          <Input disabled value={`${store.currentSpace}/${props.dataset}`} />
+          {store.currentSpace}/{props.dataset}
         </Form.Item>
         <Form.Item
-          label="Collection Name"
+          label="Name"
           field="name"
           rules={[
             {
@@ -62,10 +73,10 @@ const CreateCollection = observer((props: Props) => {
             }
           ]}
         >
-          <Input />
+          <Input placeholder="Collection Name" />
         </Form.Item>
         <Form.Item
-          label="Collection JSON Schema"
+          label="Schema"
           field="schema"
           rules={[
             {
@@ -73,17 +84,19 @@ const CreateCollection = observer((props: Props) => {
             },
             {
               validator(value, cb) {
-                try {
-                  JSON.parse(value)
-                  cb()
-                } catch (error) {
-                  cb('Invalid JSON')
+                const keys = Object.keys(value.properties) 
+                for (const key of keys) {
+                  if (!key) {
+                    cb('Invalid propertie')
+                    return
+                  }
                 }
+                cb()
               }
             }
           ]}
         >
-          <CodeEditor height="300px" />
+          <SchemaForm />
         </Form.Item>
       </Form>
     </Modal>

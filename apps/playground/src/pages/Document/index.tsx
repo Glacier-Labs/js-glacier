@@ -13,20 +13,26 @@ import {
   Input,
   Button,
   Empty,
-  Pagination,
-  Tooltip
+  Tooltip,
+  Table,
+  TableColumnProps,
+  Space,
+  Modal,
+  Message
 } from '@arco-design/web-react'
 import {
   IconFile,
   IconFolder,
   IconPlayArrow,
   IconPlus,
-  IconStorage
+  IconStorage,
+  IconEdit,
+  IconDelete,
+  IconEye
 } from '@arco-design/web-react/icon'
 
 import styles from './style.module.scss'
 import useDocs from '@hooks/useDocs'
-import DocumentView from '@components/DocumentView'
 import { useStore } from '@libs/store'
 import * as modals from '@libs/modals'
 
@@ -69,6 +75,100 @@ const Document = observer(
         refresh
       }
     })
+
+    const deleteOne = useCallback(
+      (doc: any) => {
+        Modal.confirm({
+          title: 'Delete Document',
+          simple: true,
+          content: `Delete document with id: ${doc._id} ?`,
+          onOk: async () => {
+            await store.deleteDocument(
+              tab.namespace,
+              tab.dataset,
+              tab.collection,
+              doc._id
+            )
+            Message.success('Document Deleted')
+            tab.ref?.refresh()
+          }
+        })
+      },
+      [store, tab]
+    )
+
+    const columns = useMemo(() => {
+      const cols: TableColumnProps<any>[] = [
+        {
+          title: '_id',
+          dataIndex: '_id',
+          width: 100
+        }
+      ]
+      const keysSet = new Set<string>()
+      for (const item of items) {
+        const keys = Object.keys(item)
+        for (const key of keys) {
+          if (key !== '_id') keysSet.add(key)
+        }
+      }
+      for (const key of Array.from(keysSet).sort()) {
+        cols.push({
+          title: key,
+          dataIndex: key,
+          width: 200,
+          render: value => {
+            let result = value
+            if (typeof result === 'object') result = JSON.stringify(result)
+            return <span className={styles.col}>{result}</span>
+          }
+        })
+      }
+      cols.push({
+        title: '',
+        dataIndex: 'opt',
+        width: 120,
+        fixed: 'right',
+        render: (value, record) => {
+          return (
+            <Space>
+              <Button
+                icon={<IconEye />}
+                size="mini"
+                type="primary"
+                onClick={() => {
+                  modals.viewDocument(JSON.stringify(record, null, 2))
+                }}
+              />
+              <Button
+                icon={<IconEdit />}
+                size="mini"
+                type="primary"
+                onClick={() => {
+                  modals.editDocument(
+                    tab.namespace,
+                    tab.dataset,
+                    tab.collection,
+                    record._id,
+                    JSON.stringify(record, null, 2)
+                  )
+                }}
+              />
+              <Button
+                icon={<IconDelete />}
+                size="mini"
+                type="primary"
+                status="danger"
+                onClick={() => {
+                  deleteOne(record)
+                }}
+              />
+            </Space>
+          )
+        }
+      })
+      return cols
+    }, [items, tab, deleteOne])
 
     useEffect(() => {
       list(DefaultCmd)
@@ -134,23 +234,20 @@ const Document = observer(
             <Empty />
           ) : (
             <div>
-              {items.map((item, i) => (
-                <DocumentView tab={tab} doc={item} key={item._id} />
-              ))}
-              <div className={styles.footer}>
-                <Pagination
-                  pageSize={limit}
-                  current={page}
-                  size="mini"
-                  showTotal
-                  total={docs.length}
-                  sizeOptions={[20, 30, 40, 50]}
-                  onChange={(page, size) => {
-                    setPage(page)
-                    setLimit(size)
-                  }}
-                />
-              </div>
+              <Table
+                data={items}
+                columns={columns}
+                rowKey="_id"
+                scroll={{ x: true }}
+                pagination={{
+                  showTotal: true,
+                  pageSize: limit,
+                  onChange(pageNumber, pageSize) {
+                    setLimit(pageSize)
+                    setPage(pageNumber)
+                  }
+                }}
+              />
             </div>
           )}
         </div>
