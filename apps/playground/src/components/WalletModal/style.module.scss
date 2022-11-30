@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  gap: 24px;
+  font-size: 16px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-4);
+  text-decoration: none;
+  color: var(--color-text-1);
+  transition: all 0.1s linear;
+
+  &:hover {
+    background-color: var(--color-fill-2);
+  }
+}

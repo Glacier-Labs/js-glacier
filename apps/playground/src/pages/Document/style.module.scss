@@ -1,0 +1,53 @@
+.wrap {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+.head {
+  padding: 12px;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.breadcrumb {
+  display: inline-flex;
+  gap: 3px;
+}
+.visible {
+  display: flex;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+
+  input,
+  span {
+    font-family: 'Consolas';
+  }
+}
+.main {
+  flex: 1;
+  overflow: auto;
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+}
+.folder {
+  font-size: 16px !important;
+  color: rgb(var(--gold-6)) !important;
+}
+.storage {
+  font-size: 16px !important;
+  color: rgb(var(--green-6)) !important;
+}
+.file {
+  font-size: 16px !important;
+  color: rgb(var(--primary-6)) !important;
+}

@@ -1,0 +1,57 @@
+{
+  "name": "playground",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@arco-design/web-react": "^2.41.2",
+    "@codemirror/lang-json": "^6.0.1",
+    "@ethersproject/providers": "^5.7.2",
+    "@glacier-network/client": "workspace:*",
+    "@types/node": "^16.18.3",
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
+    "@uiw/codemirror-theme-vscode": "^4.14.0",
+    "@uiw/react-codemirror": "^4.14.0",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/walletconnect-connector": "^6.2.13",
+    "classnames": "^2.3.2",
+    "mobx": "^6.6.2",
+    "mobx-react": "^7.5.3",
+    "prismjs": "^1.29.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "customize-cra": "^1.0.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "react-app-rewired": "^2.2.1",
+    "sass": "^1.56.1"
+  }
+}
