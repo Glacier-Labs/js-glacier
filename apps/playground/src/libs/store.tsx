@@ -1,12 +1,12 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 import { makeAutoObservable } from 'mobx'
 import { useLocalObservable } from 'mobx-react'
-import { GlacierClient, JSONSchema7Definition } from '@glacier-network/client'
+import { CollectionRecord, GlacierClient, JSONSchema7Definition } from '@glacier-network/client'
 
 import WalletModal from '@components/WalletModal'
 
 interface DatesetNode {
-  collections: string[]
+  collections: CollectionRecord[]
   loading: boolean
   loaded: boolean
   expanded: boolean
@@ -23,7 +23,7 @@ interface SpaceTree {
 export interface TabItem {
   namespace: string
   dataset: string
-  collection: string
+  collection: CollectionRecord
   ref?: {
     refresh: () => void
   }
@@ -87,8 +87,7 @@ class Store {
         node.loading = true
         const space = this.client?.namespace(this.currentSpace)
         const result = await space?.queryDataset(dataset)
-        const collections = result?.collections || []
-        node.collections = collections.map(item => item.collection)
+        node.collections = result?.collections || []
         node.loaded = true
       } catch (error) {
       } finally {
@@ -123,9 +122,11 @@ class Store {
     schema: JSONSchema7Definition
   ) {
     const set = this.client!.namespace(this.currentSpace).dataset(dataset)
-    const result = await set.createCollection(name, schema)
+    await set.createCollection(name, schema)
     const node = this.tree[this.currentSpace][dataset]
-    node.collections.push(result.insertedId)
+    const detail = await this.client!.namespace(this.currentSpace).queryDataset(dataset)
+    const newItems = detail.collections.slice(node.collections.length)
+    node.collections = node.collections.concat(newItems)
     node.loaded = true
     node.expanded = true
   }

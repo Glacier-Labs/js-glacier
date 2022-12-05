@@ -23,10 +23,10 @@ const Documents = observer(() => {
             onClick={() => {
               store.setActiveTab(i)
             }}
-            key={`${tab.namespace}/${tab.dataset}/${tab.collection}`}
+            key={`${tab.namespace}/${tab.dataset}/${tab.collection.collection}`}
           >
             <IconFile />
-            <span>{tab.collection}</span>
+            <span>{tab.collection.collection}</span>
             <IconClose
               onClick={e => {
                 e.stopPropagation()
@@ -40,7 +40,7 @@ const Documents = observer(() => {
         <Document
           index={i}
           visible={store.activeTab === i}
-          key={`${tab.namespace}/${tab.dataset}/${tab.collection}`}
+          key={`${tab.namespace}/${tab.dataset}/${tab.collection.collection}`}
           ref={(ref: any) => (tab.ref = ref)}
         />
       ))}

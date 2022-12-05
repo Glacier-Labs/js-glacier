@@ -54,7 +54,7 @@ const Document = observer(
     const { docs, loading, list } = useDocs(
       tab.namespace,
       tab.dataset,
-      tab.collection
+      tab.collection.collection
     )
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(20)
@@ -86,7 +86,7 @@ const Document = observer(
             await store.deleteDocument(
               tab.namespace,
               tab.dataset,
-              tab.collection,
+              tab.collection.collection,
               doc._id
             )
             Message.success('Document Deleted')
@@ -119,7 +119,9 @@ const Document = observer(
           width: 200,
           render: value => {
             let result = value
-            if (typeof result === 'object') result = JSON.stringify(result)
+            if (typeof result === 'object' || typeof result === 'boolean') {
+              result = JSON.stringify(result)
+            }
             return <span className={styles.col}>{result}</span>
           }
         })
@@ -193,7 +195,7 @@ const Document = observer(
               </Breadcrumb.Item>
               <Breadcrumb.Item className={styles.breadcrumb}>
                 <IconFile className={styles.file} />
-                <span>{tab.collection}</span>
+                <span>{tab.collection.collection}</span>
               </Breadcrumb.Item>
             </Breadcrumb>
             <Tooltip content="Insert Document" position="left">
@@ -213,7 +215,7 @@ const Document = observer(
           </div>
           <div className={styles.toolbar}>
             <Input
-              prefix={`db.collection("${tab.collection}").`}
+              prefix={`db.collection("${tab.collection.collection}").`}
               value={cmd}
               size="large"
               onChange={value => setCmd(value)}

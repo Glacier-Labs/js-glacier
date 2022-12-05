@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom/client'
+import { CollectionRecord } from '@glacier-network/client'
 import { ConfigProvider } from '@arco-design/web-react'
 import enUS from '@arco-design/web-react/es/locale/en-US'
 
@@ -52,9 +53,10 @@ export function createCollection(dataset: string) {
 export function editDocument(
   space: string,
   dataset: string,
-  collection: string,
+  collection: CollectionRecord,
   _id?: string,
-  value?: any
+  value?: any,
+  mode?: any
 ) {
   const unmount = mount(
     <EditDocument
@@ -63,7 +65,11 @@ export function editDocument(
       collection={collection}
       _id={_id}
       value={value}
-      onClose={() => unmount()}
+      mode={mode}
+      onClose={mode => {
+        unmount()
+        if (mode) editDocument(space, dataset, collection, _id, value, mode)
+      }}
     />
   )
 }

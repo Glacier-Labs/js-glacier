@@ -93,7 +93,7 @@ const DatasetNode = observer(({ dataset, onMenuClick }: Props) => {
                 })
               }}
             >
-              {item}
+              {item.collection}
             </span>
             <Dropdown
               trigger="click"
