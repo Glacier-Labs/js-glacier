@@ -66,7 +66,7 @@ const EditDocument = observer((props: Props) => {
           const formItem = properties[item]
           const type = formItem.type
           const placeholder = formItem.title || item
-          let child: any = <Input placeholder={placeholder} />
+          let child: any = <Input.TextArea rows={1} placeholder={placeholder} />
           if (type === 'number') {
             child = (
               <InputNumber
@@ -222,6 +222,23 @@ const EditDocument = observer((props: Props) => {
     }
   }
 
+  const modeBtn = () => {
+    if (!hasSchema) return null
+    if (editMode === 'json') {
+      return (
+        <Button key="form" onClick={() => changeMode('form')}>
+          Form Mode
+        </Button>
+      )
+    } else {
+      return (
+        <Button key="json" onClick={() => changeMode('json')}>
+          JSON Mode
+        </Button>
+      )
+    }
+  }
+
   useEffect(() => {
     setVisible(true)
   }, [])
@@ -238,15 +255,7 @@ const EditDocument = observer((props: Props) => {
       style={{ width: '600px' }}
       mountOnEnter={false}
       footer={[
-        editMode === 'json' && hasSchema ? (
-          <Button key="form" onClick={() => changeMode('form')}>
-            Form Mode
-          </Button>
-        ) : (
-          <Button key="json" onClick={() => changeMode('json')}>
-            JSON Mode
-          </Button>
-        ),
+        modeBtn(),
         <Button key="cancel" onClick={() => setVisible(false)}>
           Cancel
         </Button>,
