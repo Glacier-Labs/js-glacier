@@ -8,6 +8,9 @@
     "dev": "gulp --dev",
     "build": "gulp"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
