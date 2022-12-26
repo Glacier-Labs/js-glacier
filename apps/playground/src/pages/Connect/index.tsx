@@ -17,8 +17,9 @@ const Connect = observer(() => {
     const value = await form.current?.validate()
     setLoading(true)
     try {
-      await store.connect(value.url, account!, library?.getSigner())
+      await store.connect(value.url, account!, library?.provider)
     } catch (error) {
+      console.trace(error)
       Message.error('Invalid Endpoint')
     } finally {
       setLoading(false)

@@ -14,7 +14,7 @@ export default class GlacierClient {
 
   constructor(endpoint: string, options?: WalletOptions) {
     this.gateway = new Gateway(endpoint)
-    if (options?.privateKey || options?.signer) {
+    if (options?.privateKey || options?.provider) {
       this.wallet = new GlacierWallet(options)
     }
   }

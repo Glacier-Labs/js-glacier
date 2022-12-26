@@ -1,12 +1,13 @@
 import { Wallet } from '@ethersproject/wallet'
-import { Signer } from '@ethersproject/abstract-signer'
 import { hashMessage } from '@ethersproject/hash'
 import { arrayify } from '@ethersproject/bytes'
+import { Web3Provider } from '@ethersproject/providers'
 import { recoverPublicKey } from '@ethersproject/signing-key'
+import { Signer } from '@ethersproject/abstract-signer'
 
 export interface WalletOptions {
   privateKey?: string
-  signer?: any
+  provider?: any
 }
 
 export default class GlacierWallet {
@@ -16,8 +17,9 @@ export default class GlacierWallet {
     if (options.privateKey) {
       this.wallet = new Wallet(options.privateKey)
     }
-    if (options.signer) {
-      this.wallet = options.signer
+    if (options.provider) {
+      const provider = new Web3Provider(options.provider)
+      this.wallet = provider.getSigner()
     }
   }
 

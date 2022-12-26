@@ -7,7 +7,7 @@ interface RecordItem {
   updatedAt?: number
 }
 
-const NamespaceName = 'myproject1'
+const NamespaceName = 'myproject3'
 const DatasetName = 'notes'
 const CollectionName = 'records'
 const account = '0xB4c42d4B15AA65F782B81ac01Eaba2472F83B4e9'

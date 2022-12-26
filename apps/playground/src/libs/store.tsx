@@ -53,9 +53,9 @@ class Store {
     return Object.keys(space).sort()
   }
 
-  async connect(endpoint: string, account: string, signer: any) {
+  async connect(endpoint: string, account: string, provider: any) {
     this.client = new GlacierClient(endpoint, {
-      signer
+      provider
     })
     const spaces = await this.client.namespaces(account)
     const nodes: SpaceTree = {}
