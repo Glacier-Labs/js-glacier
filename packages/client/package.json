@@ -4,6 +4,11 @@
   "description": "glacier database client sdk",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Glacier-Labs/js-glacier",
+    "directory": "packages/client"
+  },
   "scripts": {
     "dev": "gulp --dev",
     "build": "gulp"
