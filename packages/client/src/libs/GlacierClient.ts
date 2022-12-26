@@ -3,11 +3,6 @@ import Namespace from './Namespace'
 import GlacierWallet, { WalletOptions } from './GlacierWallet'
 import type { InsertResult, NamespaceRecord } from '../types'
 
-export interface ClientOptions {
-  privateKey?: string
-  signer?: any
-}
-
 export default class GlacierClient {
   private wallet: GlacierWallet
   gateway: Gateway
