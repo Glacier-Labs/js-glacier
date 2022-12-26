@@ -8,11 +8,11 @@ interface RecordItem {
 }
 
 const NamespaceName = 'myproject3'
-const DatasetName = 'notes'
+const DatasetName = 'test1'
 const CollectionName = 'records'
 const account = '0xB4c42d4B15AA65F782B81ac01Eaba2472F83B4e9'
 const privateKey = `0x687dfbefd249231dbae611546b4800cb9833482adc5c9e35993333e366924120`
-const client = new GlacierClient('http://p0.onebitdev.com/glacier-gateway', {
+const client = new GlacierClient('https://p0.onebitdev.com/glacier-gateway', {
   privateKey
 })
 
@@ -120,4 +120,4 @@ async function deleteOne() {
   console.log(result)
 }
 
-createNamespace()
+queryDataset()
