@@ -11,5 +11,3 @@ pnpm add @glacier-network/client
 [sdk example](./apps/sdk-example/)
 
 [quick start](https://github.com/Glacier-Labs/glacier-quickstart)
-
-[playground](./apps/playground/)
