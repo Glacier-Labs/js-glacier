@@ -21,17 +21,17 @@ import {
   Message
 } from '@arco-design/web-react'
 import {
-  IconFile,
-  IconFolder,
   IconPlayArrow,
   IconPlus,
-  IconStorage,
   IconEdit,
   IconDelete,
   IconEye
 } from '@arco-design/web-react/icon'
 
 import styles from './style.module.scss'
+import { ReactComponent as IconDatabase } from '@assets/imgs/database.svg'
+import { ReactComponent as IconTable } from '@assets/imgs/table.svg'
+import { ReactComponent as IconFolder } from '@assets/imgs/folder.svg'
 import useDocs from '@hooks/useDocs'
 import { useStore } from '@libs/store'
 import * as modals from '@libs/modals'
@@ -190,11 +190,11 @@ const Document = observer(
                 <span>{tab.namespace}</span>
               </Breadcrumb.Item>
               <Breadcrumb.Item className={styles.breadcrumb}>
-                <IconStorage className={styles.storage} />
+                <IconDatabase className={styles.storage} />
                 <span>{tab.dataset}</span>
               </Breadcrumb.Item>
               <Breadcrumb.Item className={styles.breadcrumb}>
-                <IconFile className={styles.file} />
+                <IconTable className={styles.file} />
                 <span>{tab.collection.collection}</span>
               </Breadcrumb.Item>
             </Breadcrumb>

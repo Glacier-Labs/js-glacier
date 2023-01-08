@@ -1,14 +1,10 @@
 import classnames from 'classnames'
 import { observer } from 'mobx-react'
-import {
-  IconRight,
-  IconStorage,
-  IconFile,
-  IconMore,
-  IconLoading
-} from '@arco-design/web-react/icon'
+import { IconRight, IconMore, IconLoading } from '@arco-design/web-react/icon'
 
 import styles from './style.module.scss'
+import { ReactComponent as IconDatabase } from '@assets/imgs/database.svg'
+import { ReactComponent as IconTable } from '@assets/imgs/table.svg'
 import { useStore } from '@libs/store'
 import { useMemo } from 'react'
 import { Dropdown, Empty, Menu } from '@arco-design/web-react'
@@ -44,7 +40,7 @@ const DatasetNode = observer(({ dataset, onMenuClick }: Props) => {
         onClick={() => store.toggleExpand(dataset)}
       >
         {rootIcon()}
-        <IconStorage className={classnames(styles.icon, styles.storage)} />
+        <IconDatabase className={classnames(styles.icon, styles.storage)} />
         <span className={styles.text}>{dataset}</span>
         <Dropdown
           trigger="click"
@@ -82,7 +78,7 @@ const DatasetNode = observer(({ dataset, onMenuClick }: Props) => {
             })}
             key={i}
           >
-            <IconFile className={classnames(styles.icon, styles.collection)} />
+            <IconTable className={classnames(styles.icon, styles.collection)} />
             <span
               className={styles.text}
               onClick={() => {
@@ -106,6 +102,12 @@ const DatasetNode = observer(({ dataset, onMenuClick }: Props) => {
                     }
                   >
                     Insert Document...
+                  </Menu.Item>
+                  <Menu.Item
+                    key="viewSchema"
+                    onClick={() => modals.viewSchema(item.schema)}
+                  >
+                    View Schema...
                   </Menu.Item>
                 </Menu>
               }

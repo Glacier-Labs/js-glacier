@@ -9,6 +9,7 @@ import CreateDataset from '@components/CreateDataset'
 import CreateCollection from '@components/CreateCollection'
 import EditDocument from '@components/EditDocument'
 import ViewDocument from '@components/ViewDocument'
+import ViewSchema from '@components/ViewSchema'
 import SchemaSetting, { PropsData } from '@components/SchemaSetiing'
 
 function mount(node: JSX.Element) {
@@ -76,6 +77,11 @@ export function editDocument(
 
 export function viewDocument(doc: any) {
   const unmount = mount(<ViewDocument doc={doc} onClose={() => unmount()} />)
+}
+
+export function viewSchema(doc: string) {
+  doc = JSON.stringify(JSON.parse(doc), null, 2)
+  const unmount = mount(<ViewSchema doc={doc} onClose={() => unmount()} />)
 }
 
 export function schemaSetting(

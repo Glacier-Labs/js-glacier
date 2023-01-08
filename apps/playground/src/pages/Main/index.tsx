@@ -1,8 +1,12 @@
 import { observer } from 'mobx-react'
+import { useEffect } from 'react'
+import { useWeb3React } from '@web3-react/core'
+import { Web3Provider } from '@ethersproject/providers'
 import { Select, Button, Dropdown, Menu } from '@arco-design/web-react'
-import { IconPlus, IconFolder, IconMore } from '@arco-design/web-react/icon'
+import { IconPlus, IconMore } from '@arco-design/web-react/icon'
 
 import styles from './style.module.scss'
+import { ReactComponent as IconFolder } from '@assets/imgs/folder.svg'
 import { useStore } from '@libs/store'
 import Documents from '@pages/Documents'
 import DatasetNode from '@components/DatasetNode'
@@ -10,6 +14,12 @@ import * as modals from '@libs/modals'
 
 const Main = observer(() => {
   const store = useStore()
+  const { account, library } = useWeb3React<Web3Provider>()
+
+  useEffect(() => {
+    if (!account || !library) return
+    store.connect(store.endpoint, account!, library.provider)
+  }, [account, library, store])
 
   return (
     <>
@@ -30,7 +40,9 @@ const Main = observer(() => {
           >
             {store.spaces.map((item, i) => (
               <Select.Option value={item} key={i}>
-                <IconFolder className={styles.icon} /> {item}
+                <div className={styles.option}>
+                  <IconFolder className={styles.icon} /> {item}
+                </div>
               </Select.Option>
             ))}
           </Select>

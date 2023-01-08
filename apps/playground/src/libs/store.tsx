@@ -31,7 +31,7 @@ export interface TabItem {
 
 class Store {
   walltVisible = false
-  endpoint = ''
+  endpoint = 'https://p0.onebitdev.com/glacier-gateway'
   currentSpace = ''
   activeTab = 0
   tree: SpaceTree = {}

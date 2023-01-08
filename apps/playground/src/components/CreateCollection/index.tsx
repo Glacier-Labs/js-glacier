@@ -76,7 +76,7 @@ const CreateCollection = observer((props: Props) => {
           <Input placeholder="Collection Name" />
         </Form.Item>
         <Form.Item
-          label="Schema"
+          label="Field"
           field="schema"
           rules={[
             {
