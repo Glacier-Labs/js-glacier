@@ -7,8 +7,8 @@ interface RecordItem {
   updatedAt?: number
 }
 
-const NamespaceName = 'myproject3'
-const DatasetName = 'test1'
+const NamespaceName = 'myproject6'
+const DatasetName = 'testdb1'
 const CollectionName = 'records'
 const account = '0xB4c42d4B15AA65F782B81ac01Eaba2472F83B4e9'
 const privateKey = `0x687dfbefd249231dbae611546b4800cb9833482adc5c9e35993333e366924120`
@@ -69,7 +69,7 @@ async function createCollection() {
 }
 
 async function insertOne() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 2; i++) {
     const now = Date.now()
     const result = await myCollection.insertOne({
       title: `test title ${i + 1}`,
@@ -120,4 +120,4 @@ async function deleteOne() {
   console.log(result)
 }
 
-queryDataset()
+createNamespace()
