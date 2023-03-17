@@ -26,7 +26,7 @@ export default class GlacierClient {
     if (!this.wallet) throw new Error('Wallet not configured')
     const action = url.split('/').pop()
     const data = JSON.stringify(payload)
-    const expiredAt = Math.trunc(Date.now() / 1000 + 10)
+    const expiredAt = Math.trunc(Date.now() / 1000 + 15 * 60)
     const nonce = this.getNonce()
     const content = `${action}\n${nonce}\n${expiredAt}\n${data}`
     const hash = sha256(toUtf8Bytes(content))
